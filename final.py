@@ -42,12 +42,18 @@ def login():
     st.markdown("<h1 style='text-align: center; color: #FF6347;'>Login Page</h1>", unsafe_allow_html=True)
     username = st.text_input("Username")
     password = st.text_input("Password", type='password')
+
     if st.button("Sign In"):
         if authenticate(username, password):
             st.session_state.logged_in = True
             st.session_state.current_page = "browse"  # Redirect to browse page upon successful login
         else:
             st.error("Authentication failed. Please check your username and password.")
+    
+    # Back to Front Page option
+    if st.button("Back to frontpage"):
+        st.session_state.current_page = "front"
+        st.experimental_rerun()
 
 # Define the sign-up page
 def signup():
@@ -94,6 +100,9 @@ def signup():
             time.sleep(2)  # Simulate a delay
             st.session_state.current_page = "front"
             st.experimental_rerun()
+    elif st.button("Back to frontpage"):
+        st.session_state.current_page = "front"
+        st.experimental_rerun()
 
 # Define the browse page
 def browse(df):
